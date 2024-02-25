@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Description Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Light gray background */
+            color: #333; /* Dark gray text color */
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: none; /* Disable textarea resizing */
+        }
+
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #333; /* Dark gray background */
+                color: #fff; /* White text color */
+            }
+
+            input[type="text"],
+            select,
+            textarea {
+                background-color: #555; /* Dark gray input background */
+                color: #fff; /* White input text color */
+            }
+        }
+
+        /* Responsive layout */
+        @media screen and (max-width: 600px) {
+            input[type="text"],
+            select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Sunny Day Death Clock</h1>
+
+    <label for="age">Age:</label>
+    <input type="text" id="age"><br><br>
+
+    <label for="sexDropdown">Sex: </label>
+    <select id="sexDropdown">
+        <option value="">Male</option>
+        <option value="">Female</option>
+    </select><br><br>
+    
+    <label for="locationDropdown">Location: </label>
+    <select id="locationDropdown">
+        <option value="">Select a location</option>
+    </select><br><br>
+
+    <button onclick="generateTime()">Generate Time</button><br><br>
+
+
+<script>
+
+    // Function to populate the location dropdown from a CSV file
+    function populateLocationDropdown() {
+        // Assuming you have a CSV file named locations.csv with a column named "location"
+        // Fetching the CSV file
+        fetch('life-expectation-at-birth-by-sex.csv')
+        .then(response => response.text())
+        .then(data => {
+            // Splitting the CSV data by lines
+            const lines = data.split('\n');
+            // Selecting the location dropdown
+            const locationDropdown = document.getElementById('locationDropdown');
+            // Clearing any existing options
+            locationDropdown.innerHTML = '<option value="">Select a location</option>';
+            // Looping through each line of the CSV
+            lines.forEach(line => {
+                // Splitting each line by commas
+                const parts = line.split(',');
+                // Assuming the first column contains location data
+                const location = parts[0];
+                console.log(location);
+                // Adding an option for each location to the dropdown
+                locationDropdown.innerHTML += `<option value="${location}">${location}</option>`;
+            });
+        });
+    }
+
+    window.onload = populateLocationDropdown;
+
+</script>    
+</body>
+</html>
